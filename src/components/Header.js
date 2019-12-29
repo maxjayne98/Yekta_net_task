@@ -26,8 +26,9 @@ class Header extends React.Component {
       value: this.state.term,
       priority: this.state.priority,
       done: false,
+      id:null,
       color: this.state.color,
-      pinState: "unpinned"
+      pinState: false
     };
     this.props.addItem(newValue);
     this.setState({ term: "", priority: "" });

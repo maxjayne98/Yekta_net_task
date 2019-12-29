@@ -9,13 +9,13 @@ class Header extends React.Component {
   }
   render() {
     var pinnedItems = this.props.tasksList.map((item, index) => {
-      if (!item.done && item.pinState == "pinned")
+      if (!item.done && item.pinState )
         return (
           <TaskItem item ={item} index={index}/>
         );
       });
       var normalItems = this.props.tasksList.map((item, index) => {
-        if (!item.done && item.pinState == "unpinned")
+        if (!item.done && !item.pinState )
         return (
           <TaskItem item ={item} index={index}/>
         );
