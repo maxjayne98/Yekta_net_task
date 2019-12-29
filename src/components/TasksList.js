@@ -1,29 +1,38 @@
 import React from "react";
 import "./TasksList.css";
+import TaskItem from './TaskItem'
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
-    
+    this.state = {};
   }
   render() {
-    var normalItems = this.props.tasksList.map((item, index) => {
-        if(!item.done)
-            return (
-            <div key={index} style={{backgroundColor:item.color}}>{item.value}  {item.priority} </div>
-            );
+    var pinnedItems = this.props.tasksList.map((item, index) => {
+      if (!item.done && item.pinState == "pinned")
+        return (
+          <TaskItem item ={item} index={index}/>
+        );
       });
-    var compeletedItem = this.props.tasksList.map((item, index) => {
-        if(item.done)
-            return (
-            <div key={index} style={{backgroundColor:item.color}}>{item.value}  {item.priority} </div>
-            );
+      var normalItems = this.props.tasksList.map((item, index) => {
+        if (!item.done && item.pinState == "unpinned")
+        return (
+          <TaskItem item ={item} index={index}/>
+        );
       });
+      var compeletedItem = this.props.tasksList.map((item, index) => {
+        if (item.done)
+        return (
+          <TaskItem item ={item} index={index}/>
+        );
+    });
     return (
-      <div>
+      <div className="task-list-container">
+        <div>Pinned</div>
+        {pinnedItems}
+        <div>Unpinned</div>
         {normalItems}
+        <div>Done</div>
         {compeletedItem}
       </div>
     );

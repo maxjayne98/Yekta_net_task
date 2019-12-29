@@ -1,0 +1,6 @@
+.task-list-container {
+  /* display: flex;
+  justify-content: space-between; */
+  width: 70%;
+  margin: 20px 0px;
+}

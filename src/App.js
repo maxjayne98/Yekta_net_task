@@ -64,14 +64,14 @@ class App extends React.Component {
     });
   }
 
-  handleSubmitDropDown = value => {
-    this.setState({ colorFilter: value });
+  handleSubmitDropDown(value) {
+    this.setState({colorFilter: value});
     this.setState({
-      filtered: this.state.tasksList.filter(
-        task => task.color === this.state.colorFilter
-      )
+     filtered: this.state.tasksList.filter(
+      task => task.color === value
+     )
     });
-  };
+   };
 
   addItem = newValue => {
     const tasks = this.state.tasksList;
