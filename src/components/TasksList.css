@@ -1,6 +1,8 @@
 .task-list-container {
-  /* display: flex;
-  justify-content: space-between; */
   width: 70%;
   margin: 20px 0px;
+}
+.task-list-tittle{
+  color: #2D3A54;
+  font-size: 20pt;
 }

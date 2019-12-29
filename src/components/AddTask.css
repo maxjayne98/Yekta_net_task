@@ -1,26 +1,27 @@
-.header-container {
+.add-task-container {
   display: flex;
   justify-content: space-between;
   width: 70%;
   margin: 20px 0px;
 }
-.header-add-item-button:hover {
+.add-task-add-item-button:hover {
   background-color: #f1f1f1;
-  color: #604eff;
+  color: #2D3A54;
   cursor: pointer;
 }
 
-.header-add-item-button {
+.add-task-add-item-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #8e7aff;
+  background-color: #2D3A54;
   padding: 5px 15px;
   border-radius: 5px;
   color: white;
+  transition: all 0.3s;
 }
 .dropbtn {
-  background-color: #8e7aff;
+  background-color: #2D3A54;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -52,6 +53,7 @@
 
 .dropdown-content-item:hover {
   background-color: #ddd;
+  cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {

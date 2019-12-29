@@ -9,14 +9,14 @@ class AddTask extends React.Component {
       priority: null,
       color: ""
     };
-    this.FormHandleSubmit = this.FormHandleSubmit.bind(this);
+    this.formHandleSubmit = this.formHandleSubmit.bind(this);
   }
 
-  InputHandleChange = event => {
+  inputHandleChange = event => {
     this.setState({ term: event.target.value });
   };
 
-  FormHandleSubmit() {
+  formHandleSubmit() {
     if (!this.state.term || !this.state.priority || !this.state.color) {
       return;
     }
@@ -29,42 +29,56 @@ class AddTask extends React.Component {
       pinState: false
     };
     this.props.addItem(newValue);
-    this.setState({ term: "", priority: "" });
+    this.setState({ term: "", priority: "",color:"" });
   }
 
-  PriorityDropDownHandleSubmit = value => {
+  priorityDropDownHandleSubmit = value => {
     this.setState({ priority: value });
   };
-  ColorDropDownHandleSubmit = value => {
+  colorDropDownHandleSubmit = value => {
     this.setState({ color: value });
   };
 
+  priorityDropDownSwitchRendering() {
+    if (this.state.priority === 1) return "Low";
+    else if (this.state.priority === 2) return "Medium";
+    else if (this.state.priority === 3) return "High";
+    else return "Priority";
+  }
+  colorSwitchRendering() {
+    if (this.state.color === "#FF677D") return "Red";
+    else if (this.state.color === "#6CA0D1") return "Blue";
+    else if (this.state.color === "#FFEFEE") return "Yellow";
+    else return "Color";
+  }
   render() {
     return (
-      <div className="header-container">
+      <div className="add-task-container">
         <input
           type="text"
           value={this.state.term}
-          onChange={this.InputHandleChange}
+          onChange={this.inputHandleChange}
         />
         <div className="dropdown">
-          <button className="dropbtn">Priority</button>
+          <button className="dropbtn">
+            {this.priorityDropDownSwitchRendering()}
+          </button>
           <div className="dropdown-content">
             <div
               className="dropdown-content-item"
-              onClick={() => this.PriorityDropDownHandleSubmit(1)}
+              onClick={() => this.priorityDropDownHandleSubmit(1)}
             >
               Low
             </div>
             <div
               className="dropdown-content-item"
-              onClick={() => this.PriorityDropDownHandleSubmit(2)}
+              onClick={() => this.priorityDropDownHandleSubmit(2)}
             >
               Medium
             </div>
             <div
               className="dropdown-content-item"
-              onClick={() => this.PriorityDropDownHandleSubmit(3)}
+              onClick={() => this.priorityDropDownHandleSubmit(3)}
             >
               High
             </div>
@@ -72,30 +86,32 @@ class AddTask extends React.Component {
         </div>
 
         <div className="dropdown">
-          <button className="dropbtn">Color</button>
+          <button className="dropbtn">
+            {this.state.color ? this.colorSwitchRendering() : "Color"}
+          </button>
           <div className="dropdown-content">
             <div
               className="dropdown-content-item"
-              onClick={() => this.ColorDropDownHandleSubmit("red")}
+              onClick={() => this.colorDropDownHandleSubmit("#FF677D")}
             >
               Red
             </div>
             <div
               className="dropdown-content-item"
-              onClick={() => this.ColorDropDownHandleSubmit("blue")}
+              onClick={() => this.colorDropDownHandleSubmit("#6CA0D1")}
             >
               Blue
             </div>
             <div
               className="dropdown-content-item"
-              onClick={() => this.ColorDropDownHandleSubmit("yellow")}
+              onClick={() => this.colorDropDownHandleSubmit("#FFEFEE")}
             >
               yellow
             </div>
           </div>
         </div>
 
-        <div className="header-add-item-button" onClick={this.FormHandleSubmit}>
+        <div className="add-task-add-item-button" onClick={this.formHandleSubmit}>
           ADD ITEM
         </div>
       </div>

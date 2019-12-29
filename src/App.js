@@ -12,80 +12,77 @@ class App extends React.Component {
       filtered: [],
       tasksList: [
         {
-          value: "a",
+          value: "task1",
+          id: 70001,
+          priority: 1,
+          done: false,
+          pinState: false,
+          color: "#FF677D"
+        },
+        {
+          value: "task2",
           id: 70000,
           priority: 1,
           done: false,
           pinState: false,
-          color: "red"
+          color: "#FF677D"
         },
         {
-          value: "boro sare koche",
-          id: 70000,
-          priority: 1,
-          done: false,
-          pinState: false,
-          color: "red"
-        },
-        {
-          value: "bia inja done",
+          value: "task3",
           priority: 2,
           id: 20003,
           done: false,
           pinState: false,
-          color: "yellow"
+          color: "#FFEFEE"
         },
         {
-          value: "bia inja ",
+          value: "task4",
           priority: 3,
           id: 80000,
           done: false,
           pinState: true,
-          color: "yellow"
+          color: "#FFEFEE"
         },
         {
-          value: "bia inja ",
+          value: "task5",
           priority: 1,
           id: 90000,
           done: false,
           pinState: true,
-          color: "blue"
+          color: "#FFEFEE"
         },
         {
-          value: "bia inja hello ",
+          value: "task6 ",
           priority: 3,
           id: 860000,
           done: false,
           pinState: false,
-          color: "blue"
+          color: "#6CA0D1"
         },
         {
-          value: "haminja ",
+          value: "task7",
           priority: 2,
           id: 8546000,
           done: false,
           pinState: false,
-          color: "red"
+          color: "#FF677D"
         },
         {
-          value: "haminja ",
+          value: "task8",
           priority: 1,
           id: 780000,
           done: true,
           pinState: false,
-          color: "red"
+          color: "#FF677D"
         }
       ]
     };
     this.makeDone = this.makeDone.bind(this);
     this.makePin = this.makePin.bind(this);
+    this.deletTask = this.deletTask.bind(this);
   }
   componentDidMount() {
-    this.setState({
-      tasksList: this.state.tasksList.sort((a, b) =>
-        a.priority > b.priority ? 1 : -1
-      )
-    });
+    this.sortTasks();
   }
 
   filterColorHandleSubmitDropDown(value) {
@@ -97,43 +94,79 @@ class App extends React.Component {
 
   addItem = newValue => {
     const min = 1;
-    const max = 1000;
+    const max = 10000;
     const rand = min + Math.random() * (max - min);
 
     const tasks = this.state.tasksList;
     newValue.id = rand;
     tasks.push(newValue);
-    this.setState({
-      tasksList: tasks.sort((a, b) => (a.priority > b.priority ? 1 : -1))
-    });
+    this.sortTasks();
     this.setState({ colorFilter: "" });
   };
+
   makeDone(id) {
-    var itemIndex = this.state.tasksList.map((task,index) => {if(task.color === id) return index});
-    console.log(itemIndex)
-    // var todo = this.state.tasksList[itemIndex];
-    // var todoItems = this.state.tasksList
-    // todoItems.splice(itemIndex, 1);
-    // todo.done = !todo.done;
-    // todo.done ? todoItems.push(todo) : todoItems.unshift(todo);
-    // this.setState({tasksList: todoItems});
+    var itemIndex = this.state.tasksList
+      .map(function(x) {
+        return x.id;
+      })
+      .indexOf(id);
+    var todo = this.state.tasksList[itemIndex];
+    var todoItems = this.state.tasksList;
+    todoItems.splice(itemIndex, 1);
+    todo.done = !todo.done;
+    todo.pinState = false;
+    todo.done ? todoItems.push(todo) : todoItems.unshift(todo);
+    this.setState({ tasksList: todoItems });
+    this.sortTasks();
   }
   makePin(id) {
-    var itemIndex = this.state.tasksList.map((task,index) => {if(task.color === id) return index});
+    var itemIndex = this.state.tasksList
+      .map(function(x) {
+        return x.id;
+      })
+      .indexOf(id);
+    var todo = this.state.tasksList[itemIndex];
+    var todoItems = this.state.tasksList;
+    todoItems.splice(itemIndex, 1);
+    todo.pinState = !todo.pinState;
+    todo.pinState ? todoItems.push(todo) : todoItems.unshift(todo);
+    this.setState({ tasksList: todoItems });
+    this.sortTasks();
+  }
+  deletTask(id) {
+    var itemIndex = this.state.tasksList
+      .map(function(x) {
+        return x.id;
+      })
+      .indexOf(id);
     console.log(itemIndex)
     // var todo = this.state.tasksList[itemIndex];
-    // var todoItems = this.state.tasksList
-    // todoItems.splice(itemIndex, 1);
+    var todoItems = this.state.tasksList;
+    todoItems.splice(itemIndex, 1);
     // todo.pinState = !todo.pinState;
     // todo.pinState ? todoItems.push(todo) : todoItems.unshift(todo);
-    // this.setState({tasksList: todoItems});
+    this.setState({ tasksList: todoItems });
+    this.sortTasks();
+  }
+  sortTasks() {
+    this.setState({
+      tasksList: this.state.tasksList.sort((a, b) =>
+        a.priority > b.priority ? 1 : -1
+      )
+    });
+  }
+  colorSwitchRendering() {
+    if (this.state.colorFilter === "#FF677D") return "Red";
+    else if (this.state.colorFilter === "#6CA0D1") return "Blue";
+    else if (this.state.colorFilter === "#FFEFEE") return "Yellow";
+    else return "All";
   }
   render() {
     return (
-      <div className="App-container">
+      <div className="app-container">
         <div className="dropdown">
           <button className="dropbtn">
-            {this.state.colorFilter ? this.state.colorFilter : "choose color"}
+            {this.colorSwitchRendering() }
           </button>
           <div className="dropdown-content">
             <div
@@ -144,19 +177,19 @@ class App extends React.Component {
             </div>
             <div
               className="dropdown-content-item"
-              onClick={() => this.filterColorHandleSubmitDropDown("red")}
+              onClick={() => this.filterColorHandleSubmitDropDown("#FF677D")}
             >
               Red
             </div>
             <div
               className="dropdown-content-item"
-              onClick={() => this.filterColorHandleSubmitDropDown("yellow")}
+              onClick={() => this.filterColorHandleSubmitDropDown("#FFEFEE")}
             >
               Yellow
             </div>
             <div
               className="dropdown-content-item"
-              onClick={() => this.filterColorHandleSubmitDropDown("blue")}
+              onClick={() => this.filterColorHandleSubmitDropDown("#6CA0D1")}
             >
               Blue
             </div>
@@ -166,6 +199,7 @@ class App extends React.Component {
         <Tasks
           makeDone={this.makeDone}
           makePin={this.makePin}
+          deletTask={this.deletTask}
           tasksList={
             this.state.colorFilter ? this.state.filtered : this.state.tasksList
           }

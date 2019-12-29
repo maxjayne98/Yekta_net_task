@@ -1,0 +1,42 @@
+.task-item-container{
+    padding: 5px;
+    color: #2D3A54;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    user-select: none;
+    border-top: 1.75px solid #2D3A54;
+}
+.task-item-container:first-child{
+    border-top: none;
+}
+.task-item-value{
+    font-size: 20pt;
+    width: 200px;
+}
+.task-item-priority{
+    width: 60px;
+}
+.task-item-check-box-container{
+    display: flex;
+    justify-content: space-between;
+}
+.check-box{
+    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+}
+.true-check-box{
+    background-color: #2D3A54!important;
+}
+.not-visible-check-box{
+    visibility: hidden;
+}
+.task-item-delet-pic{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
